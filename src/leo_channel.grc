@@ -33,6 +33,18 @@ options:
     state: enabled
 
 blocks:
+- name: dl_band_fc
+  id: variable
+  parameters:
+    comment: ''
+    value: '2680000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [560, 100.0]
+    rotation: 0
+    state: true
 - name: doppler_freq
   id: variable_qtgui_range
   parameters:
@@ -90,6 +102,18 @@ blocks:
     coordinate: [184, 12]
     rotation: 0
     state: enabled
+- name: sat_altitude
+  id: variable
+  parameters:
+    comment: Altitude of Satellite (in KM)
+    value: '500'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [8, 124.0]
+    rotation: 0
+    state: true
 - name: ue_addr
   id: variable
   parameters:
@@ -100,6 +124,18 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [696, 12.0]
+    rotation: 0
+    state: true
+- name: ul_band_fc
+  id: variable
+  parameters:
+    comment: ''
+    value: '2560000000'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [712, 100.0]
     rotation: 0
     state: true
 - name: analog_random_source_x_0
@@ -119,7 +155,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [192, 740.0]
+    coordinate: [184, 956.0]
     rotation: 0
     state: disabled
 - name: analog_sig_source_x_0
@@ -141,7 +177,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 156.0]
+    coordinate: [168, 372.0]
     rotation: 0
     state: true
 - name: analog_sig_source_x_1
@@ -163,7 +199,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 532.0]
+    coordinate: [168, 748.0]
     rotation: 0
     state: true
 - name: blocks_add_xx_0
@@ -181,7 +217,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [392, 736.0]
+    coordinate: [384, 952.0]
     rotation: 0
     state: disabled
 - name: blocks_delay_0
@@ -200,7 +236,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [568, 448.0]
+    coordinate: [560, 664.0]
     rotation: 0
     state: true
 - name: blocks_delay_1
@@ -219,7 +255,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [552, 304.0]
+    coordinate: [544, 520.0]
     rotation: 0
     state: true
 - name: blocks_multiply_xx_0
@@ -237,7 +273,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [424, 288.0]
+    coordinate: [416, 504.0]
     rotation: 0
     state: true
 - name: blocks_multiply_xx_1
@@ -255,7 +291,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [424, 432.0]
+    coordinate: [416, 648.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0
@@ -274,7 +310,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [688, 316.0]
+    coordinate: [680, 532.0]
     rotation: 0
     state: true
 - name: blocks_throttle_1
@@ -293,7 +329,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [696, 460.0]
+    coordinate: [688, 676.0]
     rotation: 0
     state: true
 - name: qtgui_sink_x_0
@@ -322,7 +358,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 548.0]
+    coordinate: [552, 764.0]
     rotation: 0
     state: enabled
 - name: zeromq_rep_sink_0
@@ -341,7 +377,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [888, 300.0]
+    coordinate: [880, 516.0]
     rotation: 0
     state: enabled
 - name: zeromq_rep_sink_1
@@ -360,7 +396,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [888, 444.0]
+    coordinate: [880, 660.0]
     rotation: 0
     state: enabled
 - name: zeromq_req_source_0
@@ -381,7 +417,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 300.0]
+    coordinate: [168, 516.0]
     rotation: 0
     state: true
 - name: zeromq_req_source_1
@@ -402,7 +438,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [176, 436.0]
+    coordinate: [168, 652.0]
     rotation: 0
     state: enabled
 
