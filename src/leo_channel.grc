@@ -54,6 +54,18 @@ blocks:
     coordinate: [400, 12.0]
     rotation: 0
     state: true
+- name: nodeb_addr
+  id: variable
+  parameters:
+    comment: ''
+    value: '"tcp://10.141.51.18:2000"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [528, 12.0]
+    rotation: 0
+    state: true
 - name: prop_delay
   id: variable
   parameters:
@@ -78,6 +90,18 @@ blocks:
     coordinate: [184, 12]
     rotation: 0
     state: enabled
+- name: ue_addr
+  id: variable
+  parameters:
+    comment: ''
+    value: '"tcp://10.141.51.17:2001"'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [696, 12.0]
+    rotation: 0
+    state: true
 - name: analog_random_source_x_0
   id: analog_random_source_x
   parameters:
@@ -342,7 +366,7 @@ blocks:
 - name: zeromq_req_source_0
   id: zeromq_req_source
   parameters:
-    address: tcp://10.141.51.18:2000
+    address: nodeb_addr
     affinity: ''
     alias: ''
     comment: ''
@@ -363,7 +387,7 @@ blocks:
 - name: zeromq_req_source_1
   id: zeromq_req_source
   parameters:
-    address: tcp://10.141.51.17:2001
+    address: ue_addr
     affinity: ''
     alias: ''
     comment: ''
