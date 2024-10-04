@@ -28,7 +28,7 @@ options:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 8]
+    coordinate: [72, 20.0]
     rotation: 0
     state: enabled
 
@@ -42,30 +42,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 100.0]
+    coordinate: [528, 20.0]
     rotation: 0
     state: true
 - name: doppler_freq
-  id: variable_qtgui_range
+  id: variable_qtgui_label
   parameters:
     comment: ''
+    formatter: None
     gui_hint: ''
-    label: ''
-    min_len: '200'
-    orient: QtCore.Qt.Horizontal
-    rangeType: int
-    start: '0'
-    step: '100'
-    stop: '100000'
+    label: Current Doppler Frequency (Hz)
+    type: int
     value: '0'
-    widget: counter_slider
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [400, 12.0]
+    coordinate: [824, 20.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: nodeb_addr
   id: variable
   parameters:
@@ -75,21 +70,25 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [528, 12.0]
+    coordinate: [360, 20.0]
     rotation: 0
     state: true
 - name: prop_delay
-  id: variable
+  id: variable_qtgui_label
   parameters:
     comment: ''
-    value: '50'
+    formatter: None
+    gui_hint: ''
+    label: Current Propagation Delay (samples)
+    type: int
+    value: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [288, 12.0]
+    coordinate: [824, 100.0]
     rotation: 0
-    state: true
+    state: enabled
 - name: samp_rate
   id: variable
   parameters:
@@ -99,7 +98,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [184, 12]
+    coordinate: [256, 20.0]
     rotation: 0
     state: enabled
 - name: sat_altitude
@@ -111,7 +110,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [8, 124.0]
+    coordinate: [640, 20.0]
     rotation: 0
     state: true
 - name: ue_addr
@@ -123,7 +122,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [696, 12.0]
+    coordinate: [360, 92.0]
     rotation: 0
     state: true
 - name: ul_band_fc
@@ -135,7 +134,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [712, 100.0]
+    coordinate: [528, 92.0]
     rotation: 0
     state: true
 - name: analog_random_source_x_0
@@ -158,50 +157,6 @@ blocks:
     coordinate: [184, 956.0]
     rotation: 0
     state: disabled
-- name: analog_sig_source_x_0
-  id: analog_sig_source_x
-  parameters:
-    affinity: ''
-    alias: ''
-    amp: '1'
-    comment: Doppler Shift
-    freq: doppler_freq
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    offset: '0'
-    phase: '0'
-    samp_rate: samp_rate
-    type: complex
-    waveform: analog.GR_SIN_WAVE
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [168, 372.0]
-    rotation: 0
-    state: true
-- name: analog_sig_source_x_1
-  id: analog_sig_source_x
-  parameters:
-    affinity: ''
-    alias: ''
-    amp: '1'
-    comment: Doppler Shift
-    freq: doppler_freq
-    maxoutbuf: '0'
-    minoutbuf: '0'
-    offset: '0'
-    phase: '0'
-    samp_rate: samp_rate
-    type: complex
-    waveform: analog.GR_SIN_WAVE
-  states:
-    bus_sink: false
-    bus_source: false
-    bus_structure: null
-    coordinate: [168, 748.0]
-    rotation: 0
-    state: true
 - name: blocks_add_xx_0
   id: blocks_add_xx
   parameters:
@@ -236,7 +191,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [560, 664.0]
+    coordinate: [544, 608.0]
     rotation: 0
     state: true
 - name: blocks_delay_1
@@ -255,43 +210,41 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [544, 520.0]
+    coordinate: [544, 472.0]
     rotation: 0
     state: true
-- name: blocks_multiply_xx_0
-  id: blocks_multiply_xx
+- name: blocks_freqshift_cc_0
+  id: blocks_freqshift_cc
   parameters:
     affinity: ''
     alias: ''
     comment: ''
+    freq: doppler_freq
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
+    sample_rate: samp_rate
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 504.0]
+    coordinate: [320, 460.0]
     rotation: 0
     state: true
-- name: blocks_multiply_xx_1
-  id: blocks_multiply_xx
+- name: blocks_freqshift_cc_1
+  id: blocks_freqshift_cc
   parameters:
     affinity: ''
     alias: ''
     comment: ''
+    freq: doppler_freq
     maxoutbuf: '0'
     minoutbuf: '0'
-    num_inputs: '2'
-    type: complex
-    vlen: '1'
+    sample_rate: samp_rate
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [416, 648.0]
+    coordinate: [320, 596.0]
     rotation: 0
     state: true
 - name: blocks_throttle_0
@@ -310,7 +263,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [680, 532.0]
+    coordinate: [688, 484.0]
     rotation: 0
     state: true
 - name: blocks_throttle_1
@@ -329,7 +282,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [688, 676.0]
+    coordinate: [696, 620.0]
     rotation: 0
     state: true
 - name: qtgui_sink_x_0
@@ -358,9 +311,38 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [552, 764.0]
+    coordinate: [920, 708.0]
     rotation: 0
     state: enabled
+- name: qtgui_sink_x_1
+  id: qtgui_sink_x
+  parameters:
+    affinity: ''
+    alias: ''
+    bw: samp_rate
+    comment: ''
+    fc: '0'
+    fftsize: '1024'
+    gui_hint: ''
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    name: '""'
+    plotconst: 'True'
+    plotfreq: 'True'
+    plottime: 'True'
+    plotwaterfall: 'True'
+    rate: '10'
+    showports: 'False'
+    showrf: 'False'
+    type: complex
+    wintype: window.WIN_BLACKMAN_hARRIS
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [920, 340.0]
+    rotation: 0
+    state: true
 - name: zeromq_rep_sink_0
   id: zeromq_rep_sink
   parameters:
@@ -377,7 +359,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 516.0]
+    coordinate: [920, 468.0]
     rotation: 0
     state: enabled
 - name: zeromq_rep_sink_1
@@ -396,7 +378,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [880, 660.0]
+    coordinate: [920, 604.0]
     rotation: 0
     state: enabled
 - name: zeromq_req_source_0
@@ -417,7 +399,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [168, 516.0]
+    coordinate: [64, 452.0]
     rotation: 0
     state: true
 - name: zeromq_req_source_1
@@ -438,22 +420,21 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [168, 652.0]
+    coordinate: [64, 588.0]
     rotation: 0
     state: enabled
 
 connections:
-- [analog_sig_source_x_0, '0', blocks_multiply_xx_0, '0']
-- [analog_sig_source_x_1, '0', blocks_multiply_xx_1, '1']
 - [blocks_delay_0, '0', blocks_throttle_1, '0']
 - [blocks_delay_1, '0', blocks_throttle_0, '0']
-- [blocks_multiply_xx_0, '0', blocks_delay_1, '0']
-- [blocks_multiply_xx_1, '0', blocks_delay_0, '0']
-- [blocks_multiply_xx_1, '0', qtgui_sink_x_0, '0']
+- [blocks_freqshift_cc_0, '0', blocks_delay_1, '0']
+- [blocks_freqshift_cc_1, '0', blocks_delay_0, '0']
+- [blocks_throttle_0, '0', qtgui_sink_x_1, '0']
 - [blocks_throttle_0, '0', zeromq_rep_sink_0, '0']
+- [blocks_throttle_1, '0', qtgui_sink_x_0, '0']
 - [blocks_throttle_1, '0', zeromq_rep_sink_1, '0']
-- [zeromq_req_source_0, '0', blocks_multiply_xx_0, '1']
-- [zeromq_req_source_1, '0', blocks_multiply_xx_1, '0']
+- [zeromq_req_source_0, '0', blocks_freqshift_cc_0, '0']
+- [zeromq_req_source_1, '0', blocks_freqshift_cc_1, '0']
 
 metadata:
   file_format: 1
