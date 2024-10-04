@@ -17,12 +17,12 @@ def main():
     parser.add_option("-d", "--doppler_freq", dest="doppler_freq", type="float", default=DEFAULT_DOPPLER_FREQ,
                       help="Set the doppler frequency (in Hz)")
     parser.add_option("-p", "--prop_delay", dest="prop_delay", type="float", default=DEFAULT_PROP_DELAY,
-                      help="Set the propagation delay (in milliseconds)")
+                      help="Set the propagation delay (in μs)")
 
     (options, args) = parser.parse_args()
 
     tb = leo_channel()
-    delay = options.prop_delay * 1e-3 * tb.get_samp_rate()
+    delay = options.prop_delay * 1e-6 * tb.get_samp_rate()
     tb.set_prop_delay(int(delay))
     tb.set_doppler_freq(options.doppler_freq)
 
