@@ -2,6 +2,7 @@ import signal
 import sys
 from optparse import OptionParser
 
+import utils
 from PyQt5 import Qt
 
 from leo_channel import leo_channel
@@ -22,8 +23,7 @@ def main():
     (options, args) = parser.parse_args()
 
     tb = leo_channel()
-    delay = options.prop_delay * 1e-6 * tb.get_samp_rate()
-    tb.set_prop_delay(int(delay))
+    tb.set_prop_delay(utils.get_delay_in_samples(options.prop_delay, tb.get_samp_rate()))
     tb.set_doppler_freq(options.doppler_freq)
 
     tb.start()
