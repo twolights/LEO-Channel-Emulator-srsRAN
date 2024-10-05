@@ -89,6 +89,22 @@ blocks:
     coordinate: [360, 20.0]
     rotation: 0
     state: true
+- name: orbiting_speed
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: Current Satellite's Orbiting Speed (KM/s)
+    type: real
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1000, 100.0]
+    rotation: 0
+    state: true
 - name: prop_delay
   id: variable_qtgui_label
   parameters:
@@ -129,6 +145,22 @@ blocks:
     coordinate: [640, 20.0]
     rotation: 0
     state: true
+- name: satellite_location
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: Satellite's Current Location (radian)
+    type: real
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1176, 100.0]
+    rotation: 0
+    state: true
 - name: ue_addr
   id: variable
   parameters:
@@ -139,6 +171,22 @@ blocks:
     bus_source: false
     bus_structure: null
     coordinate: [360, 92.0]
+    rotation: 0
+    state: true
+- name: ue_location
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: UE's Location (radian)
+    type: real
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1176, 20.0]
     rotation: 0
     state: true
 - name: ul_band_fc
