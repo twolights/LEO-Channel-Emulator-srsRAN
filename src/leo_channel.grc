@@ -45,13 +45,29 @@ blocks:
     coordinate: [528, 20.0]
     rotation: 0
     state: true
-- name: doppler_freq
+- name: doppler_freq_dl
   id: variable_qtgui_label
   parameters:
     comment: ''
     formatter: None
     gui_hint: ''
-    label: Current Doppler Frequency (Hz)
+    label: Current Downlink Doppler Frequency (Hz)
+    type: int
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1000, 20.0]
+    rotation: 0
+    state: enabled
+- name: doppler_freq_ul
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: Current Uplink Doppler Frequency (Hz)
     type: int
     value: '0'
   states:
@@ -219,7 +235,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    freq: doppler_freq
+    freq: doppler_freq_dl
     maxoutbuf: '0'
     minoutbuf: '0'
     sample_rate: samp_rate
@@ -236,7 +252,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    freq: doppler_freq
+    freq: doppler_freq_ul
     maxoutbuf: '0'
     minoutbuf: '0'
     sample_rate: samp_rate

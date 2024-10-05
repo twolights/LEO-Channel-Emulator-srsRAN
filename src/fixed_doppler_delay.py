@@ -24,7 +24,8 @@ def main():
 
     tb = leo_channel()
     tb.set_prop_delay(utils.get_delay_in_samples(options.prop_delay, tb.get_samp_rate()))
-    tb.set_doppler_freq(options.doppler_freq)
+    tb.set_doppler_freq_dl(options.doppler_freq)
+    tb.set_doppler_freq_ul(options.doppler_freq)
 
     tb.start()
     tb.show()

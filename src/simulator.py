@@ -122,8 +122,8 @@ def init_satellite(tb: leo_channel,
 def qt_callback(tb: leo_channel, satellite: LEOSatellite):
     satellite.step()
     tb.set_prop_delay(satellite.get_propagation_delay())
-    tb.set_doppler_freq(satellite.get_uplink_doppler_shift())  # TODO
-    tb.set_doppler_freq(satellite.get_downlink_doppler_shift())
+    tb.set_doppler_freq_ul(satellite.get_uplink_doppler_shift())
+    tb.set_doppler_freq_dl(satellite.get_downlink_doppler_shift())
 
 
 def main():
