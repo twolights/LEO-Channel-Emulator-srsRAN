@@ -3,6 +3,7 @@ import math
 import signal
 import sys
 import time
+from optparse import OptionParser
 from typing import Optional, Tuple
 
 from PyQt5 import Qt
@@ -10,10 +11,16 @@ from PyQt5 import Qt
 from leo_channel import leo_channel
 
 QTIMER_TIMEOUT = 1  # ms
+
 SPEED_OF_LIGHT_IN_KM_S = 299_792_458 / 1_000  # km/s
 EARTH_RADIUS_IN_KM = 6_371  # km
 G = 6.67430e-11  # N m^2/kg^2
 EARTH_MASS = 5.972e24  # kg
+
+DEFAULT_DL_FREQ = 2.68 * 10e9  # Default downlink frequency, GHz
+DEFAULT_UL_FREQ = 2.53 * 10e9  # Default uplink frequency, GHz
+DEFAULT_SATELLITE_ALTITUDE = 500  # Default satellite altitude in km
+DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in radians
 
 
 class LEOSatellite(object):
@@ -100,11 +107,16 @@ class LEOSatellite(object):
         return self.get_distance_to_ue() / SPEED_OF_LIGHT_IN_KM_S
 
 
-def init_satellite(tb: leo_channel) -> LEOSatellite:
-    return LEOSatellite(altitude_in_km=tb.get_sat_altitude(),
-                        downlink_frequency=tb.get_dl_band_fc(),
-                        uplink_frequency=tb.get_ul_band_fc(),
-                        initial_position=0)
+def init_satellite(tb: leo_channel,
+                   dl_freq: int, ul_freq: int,
+                   sat_altitude: int, sat_init_pos: int) -> LEOSatellite:
+    tb.set_sat_altitude(sat_altitude)
+    tb.set_dl_band_fc(dl_freq)
+    tb.set_ul_band_fc(ul_freq)
+    return LEOSatellite(altitude_in_km=sat_altitude,
+                        downlink_frequency=dl_freq,
+                        uplink_frequency=ul_freq,
+                        initial_position=sat_init_pos)
 
 
 def qt_callback(tb: leo_channel, satellite: LEOSatellite):
@@ -115,10 +127,22 @@ def qt_callback(tb: leo_channel, satellite: LEOSatellite):
 
 
 def main():
+    parser = OptionParser()
+    parser.add_option("--dl_freq", dest="dl_freq", type="float", default=DEFAULT_DL_FREQ,
+                      help="Set the downlink frequency in Hz)")
+    parser.add_option("--ul_freq", dest="ul_freq", type="float", default=DEFAULT_UL_FREQ,
+                      help="Set the uplink frequency in Hz)")
+    parser.add_option("--sat_altitude", dest="sat_altitude", type="float", default=DEFAULT_SATELLITE_ALTITUDE,
+                      help="Set the satellite altitude in KM")
+    parser.add_option("--sat_init_pos", dest="sat_init_pos", type="float", default=DEFAULT_SATELLITE_LOCATION,
+                      help="Set the initial position of the satellite in radians")
+    (opts, args) = parser.parse_args()
     qt_app = Qt.QApplication(sys.argv)
 
     tb = leo_channel()
-    satellite = init_satellite(tb)
+    satellite = init_satellite(tb,
+                               opts.dl_freq, opts.ul_freq,
+                               opts.sat_altitude, opts.sat_init_pos)
     satellite.reset()
     speed, angular_speed = satellite.get_orbital_speed()
     print(f"Orbital speed: {speed} km/s, {angular_speed} rad/s")
