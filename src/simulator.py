@@ -8,6 +8,8 @@ from typing import Optional, Tuple
 
 from PyQt5 import Qt
 
+import utils
+
 from leo_channel import leo_channel
 
 QTIMER_TIMEOUT = 1  # ms
@@ -20,7 +22,7 @@ EARTH_MASS = 5.972e24  # kg
 DEFAULT_DL_FREQ = 2.68 * 10e9  # Default downlink frequency, GHz
 DEFAULT_UL_FREQ = 2.53 * 10e9  # Default uplink frequency, GHz
 DEFAULT_SATELLITE_ALTITUDE = 500  # Default satellite altitude in km
-DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in radians
+DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in degrees
 
 
 class LEOSatellite(object):
@@ -75,6 +77,9 @@ class LEOSatellite(object):
     def get_orbital_speed(self) -> Tuple[float, float]:
         return self.orbital_speed, self.orbital_angular_speed
 
+    def get_ue_location(self) -> float:
+        return self.ue_position
+
     def get_current_position(self) -> float:
         return self.current_position
 
@@ -110,20 +115,31 @@ class LEOSatellite(object):
 def init_satellite(tb: leo_channel,
                    dl_freq: int, ul_freq: int,
                    sat_altitude: int, sat_init_pos: int) -> LEOSatellite:
+    initial_position = utils.degrees_to_radians(sat_init_pos)
     tb.set_sat_altitude(sat_altitude)
     tb.set_dl_band_fc(dl_freq)
     tb.set_ul_band_fc(ul_freq)
     return LEOSatellite(altitude_in_km=sat_altitude,
                         downlink_frequency=dl_freq,
                         uplink_frequency=ul_freq,
-                        initial_position=sat_init_pos)
+                        initial_position=initial_position)
 
 
 def qt_callback(tb: leo_channel, satellite: LEOSatellite):
     satellite.step()
-    tb.set_prop_delay(satellite.get_propagation_delay())
+    delay = satellite.get_propagation_delay()
+    tb.set_prop_delay_us(delay * 10e6)  # to microseconds
+    tb.set_prop_delay(utils.get_delay_in_samples(delay, tb.get_samp_rate()))
     tb.set_doppler_freq_ul(satellite.get_uplink_doppler_shift())
     tb.set_doppler_freq_dl(satellite.get_downlink_doppler_shift())
+
+    # Display satellite and UE information
+    tb.set_satellite_location(utils.radians_to_degrees(satellite.get_current_position()))
+    speed, angular_speed = satellite.get_orbital_speed()
+    tb.set_orbiting_speed(speed)
+    tb.set_ue_location(utils.radians_to_degrees(satellite.get_ue_location()))
+    tb.set_elevation_angle(utils.radians_to_degrees(satellite.get_elevation_angle()))
+    tb.set_distance_to_ue(satellite.get_distance_to_ue())
 
 
 def main():
@@ -135,7 +151,7 @@ def main():
     parser.add_option("--sat_altitude", dest="sat_altitude", type="float", default=DEFAULT_SATELLITE_ALTITUDE,
                       help="Set the satellite altitude in KM")
     parser.add_option("--sat_init_pos", dest="sat_init_pos", type="float", default=DEFAULT_SATELLITE_LOCATION,
-                      help="Set the initial position of the satellite in radians")
+                      help="Set the initial position of the satellite in degrees")
     (opts, args) = parser.parse_args()
     qt_app = Qt.QApplication(sys.argv)
 
@@ -144,8 +160,6 @@ def main():
                                opts.dl_freq, opts.ul_freq,
                                opts.sat_altitude, opts.sat_init_pos)
     satellite.reset()
-    speed, angular_speed = satellite.get_orbital_speed()
-    print(f"Orbital speed: {speed} km/s, {angular_speed} rad/s")
 
     tb.start()
     tb.show()

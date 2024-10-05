@@ -33,6 +33,22 @@ options:
     state: enabled
 
 blocks:
+- name: distance_to_ue
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: Satellite's Distance to UE (KM)
+    type: real
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1352, 100.0]
+    rotation: 0
+    state: true
 - name: dl_band_fc
   id: variable
   parameters:
@@ -77,6 +93,22 @@ blocks:
     coordinate: [824, 20.0]
     rotation: 0
     state: enabled
+- name: elevation_angle
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: Satellite Elevation Angle (degrees)
+    type: real
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [1352, 20.0]
+    rotation: 0
+    state: true
 - name: nodeb_addr
   id: variable
   parameters:
@@ -121,6 +153,22 @@ blocks:
     coordinate: [824, 100.0]
     rotation: 0
     state: enabled
+- name: prop_delay_us
+  id: variable_qtgui_label
+  parameters:
+    comment: ''
+    formatter: None
+    gui_hint: ''
+    label: Current Propagation Delay (us)
+    type: real
+    value: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [824, 180.0]
+    rotation: 0
+    state: enabled
 - name: samp_rate
   id: variable
   parameters:
@@ -151,7 +199,7 @@ blocks:
     comment: ''
     formatter: None
     gui_hint: ''
-    label: Satellite's Current Location (radian)
+    label: Satellite's Current Location (degrees)
     type: real
     value: '0'
   states:
@@ -179,7 +227,7 @@ blocks:
     comment: ''
     formatter: None
     gui_hint: ''
-    label: UE's Location (radian)
+    label: UE's Location (degrees)
     type: real
     value: '0'
   states:
