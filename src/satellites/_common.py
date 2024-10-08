@@ -1,0 +1,4 @@
+SPEED_OF_LIGHT_IN_KM_S = 299_792_458 / 1_000  # km/s
+EARTH_RADIUS_IN_KM = 6_371  # km
+G = 6.67430e-11  # N m^2/kg^2
+EARTH_MASS = 5.972e24  # kg
