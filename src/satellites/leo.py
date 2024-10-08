@@ -57,6 +57,9 @@ class LEOSatellite(object):
     def get_orbital_speed(self) -> Tuple[float, float]:
         return self.orbital_speed, self.orbital_angular_speed
 
+    def get_altitude(self) -> float:
+        return self.altitude_in_km
+
     def get_ue_location(self) -> float:
         return self.ue_position
 
