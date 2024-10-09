@@ -41,6 +41,7 @@ def qt_callback(tb: leo_channel, orbit_view: OrbitingWidget, satellite: LEOSatel
     tb.set_prop_delay(utils.get_delay_in_samples(delay, tb.get_samp_rate()))
     tb.set_doppler_freq_ul(satellite.get_uplink_doppler_shift())
     tb.set_doppler_freq_dl(satellite.get_downlink_doppler_shift())
+    tb.set_relative_speed_label(satellite.get_relative_speed_to_ue())
 
     # Display satellite and UE information
     tb.set_satellite_location(utils.radians_to_degrees(satellite.get_current_position()))
