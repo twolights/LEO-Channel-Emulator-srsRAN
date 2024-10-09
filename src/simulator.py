@@ -12,9 +12,9 @@ from ui import OrbitingWidget
 
 QTIMER_TIMEOUT = 1  # ms
 
-DEFAULT_DL_FREQ = 2.68 * 10e9  # Default downlink frequency, GHz
-DEFAULT_UL_FREQ = 2.53 * 10e9  # Default uplink frequency, GHz
-DEFAULT_SATELLITE_ALTITUDE = 500  # Default satellite altitude in km
+DEFAULT_DL_FREQ = 2.68 * 1e9  # Default downlink frequency, GHz
+DEFAULT_UL_FREQ = 2.53 * 1e9  # Default uplink frequency, GHz
+DEFAULT_SATELLITE_ALTITUDE = 600  # Default satellite altitude in km
 DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in degrees
 
 timer = 0
@@ -37,10 +37,11 @@ def qt_callback(tb: leo_channel, orbit_view: OrbitingWidget, satellite: LEOSatel
     global timer
     satellite.step()
     delay = satellite.get_propagation_delay()
-    tb.set_prop_delay_us(delay * 10e6)  # to microseconds
+    tb.set_prop_delay_us(delay * 1e6)  # to microseconds
     tb.set_prop_delay(utils.get_delay_in_samples(delay, tb.get_samp_rate()))
     tb.set_doppler_freq_ul(satellite.get_uplink_doppler_shift())
     tb.set_doppler_freq_dl(satellite.get_downlink_doppler_shift())
+    tb.set_relative_speed_label(satellite.get_relative_speed_to_ue())
 
     # Display satellite and UE information
     tb.set_satellite_location(utils.radians_to_degrees(satellite.get_current_position()))
