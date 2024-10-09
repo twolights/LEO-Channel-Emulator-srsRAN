@@ -1,1 +1,1 @@
-from .matplotlib_widget import OrbitingWidget
+from .orbiting_widget import OrbitingWidget
