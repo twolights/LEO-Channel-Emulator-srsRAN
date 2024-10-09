@@ -233,7 +233,7 @@ blocks:
   id: variable
   parameters:
     comment: Altitude of Satellite (in KM)
-    value: '500'
+    value: '600'
   states:
     bus_sink: false
     bus_source: false

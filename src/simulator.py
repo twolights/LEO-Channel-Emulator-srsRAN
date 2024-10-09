@@ -14,7 +14,7 @@ QTIMER_TIMEOUT = 1  # ms
 
 DEFAULT_DL_FREQ = 2.68 * 10e9  # Default downlink frequency, GHz
 DEFAULT_UL_FREQ = 2.53 * 10e9  # Default uplink frequency, GHz
-DEFAULT_SATELLITE_ALTITUDE = 500  # Default satellite altitude in km
+DEFAULT_SATELLITE_ALTITUDE = 600  # Default satellite altitude in km
 DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in degrees
 
 timer = 0
