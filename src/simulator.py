@@ -6,9 +6,9 @@ from optparse import OptionParser
 from PyQt5 import Qt
 
 import utils
-
 from leo_channel import leo_channel
 from satellites import LEOSatellite
+from ui import OrbitingWidget
 
 QTIMER_TIMEOUT = 1  # ms
 
@@ -16,6 +16,8 @@ DEFAULT_DL_FREQ = 2.68 * 10e9  # Default downlink frequency, GHz
 DEFAULT_UL_FREQ = 2.53 * 10e9  # Default uplink frequency, GHz
 DEFAULT_SATELLITE_ALTITUDE = 500  # Default satellite altitude in km
 DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in degrees
+
+timer = 0
 
 
 def init_satellite(tb: leo_channel,
@@ -31,7 +33,8 @@ def init_satellite(tb: leo_channel,
                         initial_position=initial_position)
 
 
-def qt_callback(tb: leo_channel, satellite: LEOSatellite):
+def qt_callback(tb: leo_channel, orbit_view: OrbitingWidget, satellite: LEOSatellite):
+    global timer
     satellite.step()
     delay = satellite.get_propagation_delay()
     tb.set_prop_delay_us(delay * 10e6)  # to microseconds
@@ -46,6 +49,11 @@ def qt_callback(tb: leo_channel, satellite: LEOSatellite):
     tb.set_ue_location(utils.radians_to_degrees(satellite.get_ue_location()))
     tb.set_elevation_angle(utils.radians_to_degrees(satellite.get_elevation_angle()))
     tb.set_distance_to_ue(satellite.get_distance_to_ue())
+
+    if (timer % 1000) == 0:
+        orbit_view.update()
+
+    timer += 1
 
 
 def main():
@@ -67,6 +75,9 @@ def main():
                                opts.sat_altitude, opts.sat_init_pos)
     satellite.reset()
 
+    plot_window = OrbitingWidget(satellite)
+    plot_window.show()
+
     tb.start()
     tb.show()
 
@@ -78,7 +89,10 @@ def main():
     signal.signal(signal.SIGINT, sig_handler)
     signal.signal(signal.SIGTERM, sig_handler)
 
-    callback = functools.partial(qt_callback, tb=tb, satellite=satellite)
+    callback = functools.partial(qt_callback,
+                                 tb=tb,
+                                 orbit_view=plot_window,
+                                 satellite=satellite)
 
     timer = Qt.QTimer()
     timer.setTimerType(Qt.Qt.PreciseTimer)
