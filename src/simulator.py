@@ -38,6 +38,7 @@ def qt_callback(tb: leo_channel, orbit_view: OrbitingWidget, satellite: LEOSatel
     satellite.step()
     delay = satellite.get_propagation_delay()
     tb.set_prop_delay_us(delay * 1e6)  # to microseconds
+    # tb.set_prop_delay(0)
     tb.set_prop_delay(utils.get_delay_in_samples(delay, tb.get_samp_rate()))
     tb.set_doppler_freq_ul(satellite.get_uplink_doppler_shift())
     tb.set_doppler_freq_dl(satellite.get_downlink_doppler_shift())

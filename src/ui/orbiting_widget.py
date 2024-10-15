@@ -30,7 +30,9 @@ class OrbitingWidget(QWidget):
         self.canvas = FigureCanvas(Figure(figsize=(10, 10)))
         self.ax = self.canvas.figure.subplots()
         self.ax.grid(True)
+        # self.ax.set_xlim(-2000, 2000)
         self.ax.set_xlim(-limit, limit)
+        # self.ax.set_ylim(4000, 8000)
         self.ax.set_ylim(-limit, limit)
         self.ax.set_aspect('equal', 'box')
 
