@@ -16,6 +16,7 @@ DEFAULT_DL_FREQ = 2.68 * 1e9  # Default downlink frequency, GHz
 DEFAULT_UL_FREQ = 2.53 * 1e9  # Default uplink frequency, GHz
 DEFAULT_SATELLITE_ALTITUDE = 600  # Default satellite altitude in km
 DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in degrees
+DEFAULT_NOISE_VOLTAGE = 0.0  # Default noise power in voltage
 
 timer = 0
 
@@ -37,7 +38,9 @@ def qt_callback(tb: leo_channel, orbit_view: OrbitingWidget, satellite: LEOSatel
     global timer
     satellite.step()
     delay = satellite.get_propagation_delay()
+    # delay = 3000 * 1e-6
     tb.set_prop_delay_us(delay * 1e6)  # to microseconds
+    # tb.set_prop_delay(0)
     tb.set_prop_delay(utils.get_delay_in_samples(delay, tb.get_samp_rate()))
     tb.set_doppler_freq_ul(satellite.get_uplink_doppler_shift())
     tb.set_doppler_freq_dl(satellite.get_downlink_doppler_shift())
@@ -67,10 +70,13 @@ def main():
                       help="Set the satellite altitude in KM")
     parser.add_option("--sat_init_pos", dest="sat_init_pos", type="float", default=DEFAULT_SATELLITE_LOCATION,
                       help="Set the initial position of the satellite in degrees")
+    parser.add_option("-n", "--noise_voltage", dest="noise_voltage", type="float", default=DEFAULT_NOISE_VOLTAGE,
+                      help="Set the noise power in voltage")
     (opts, args) = parser.parse_args()
     qt_app = Qt.QApplication(sys.argv)
 
     tb = leo_channel()
+    tb.set_noise_voltage(opts.noise_voltage)
     satellite = init_satellite(tb,
                                opts.dl_freq, opts.ul_freq,
                                opts.sat_altitude, opts.sat_init_pos)

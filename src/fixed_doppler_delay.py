@@ -9,12 +9,18 @@ from leo_channel import leo_channel
 
 DEFAULT_DOPPLER_FREQ = 0
 DEFAULT_PROP_DELAY = 0
+DEFAULT_DL_FREQ = 2.68 * 1e9  # Default downlink frequency, GHz
+DEFAULT_UL_FREQ = 2.53 * 1e9  # Default uplink frequency, GHz
 
 
 def main():
     qt_app = Qt.QApplication(sys.argv)
 
     parser = OptionParser()
+    parser.add_option("--dl_freq", dest="dl_freq", type="float", default=DEFAULT_DL_FREQ,
+                      help="Set the downlink frequency in Hz)")
+    parser.add_option("--ul_freq", dest="ul_freq", type="float", default=DEFAULT_UL_FREQ,
+                      help="Set the uplink frequency in Hz)")
     parser.add_option("-d", "--doppler_freq", dest="doppler_freq", type="float", default=DEFAULT_DOPPLER_FREQ,
                       help="Set the doppler frequency (in Hz)")
     parser.add_option("-p", "--prop_delay", dest="prop_delay", type="float", default=DEFAULT_PROP_DELAY,
@@ -24,6 +30,8 @@ def main():
 
     tb = leo_channel()
     tb.set_prop_delay(utils.get_delay_in_samples(options.prop_delay, tb.get_samp_rate()))
+    tb.set_dl_band_fc(options.dl_freq)
+    tb.set_ul_band_fc(options.ul_freq)
     tb.set_doppler_freq_dl(options.doppler_freq)
     tb.set_doppler_freq_ul(options.doppler_freq)
 
