@@ -15,8 +15,6 @@ DEFAULT_NOISE_VOLTAGE = 0.0  # Default noise power in voltage
 
 
 def main():
-    qt_app = Qt.QApplication(sys.argv)
-
     parser = OptionParser()
     parser.add_option("--dl_freq", dest="dl_freq", type="float", default=DEFAULT_DL_FREQ,
                       help="Set the downlink frequency in Hz)")
@@ -28,8 +26,9 @@ def main():
                       help="Set the propagation delay (in μs)")
     parser.add_option("-n", "--noise_voltage", dest="noise_voltage", type="float", default=DEFAULT_NOISE_VOLTAGE,
                       help="Set the noise power in voltage")
-
     (opts, args) = parser.parse_args()
+
+    qt_app = Qt.QApplication(sys.argv)
 
     tb = leo_channel()
     tb.set_prop_delay(utils.get_delay_in_samples(opts.prop_delay, tb.get_samp_rate()))
