@@ -73,6 +73,7 @@ def main():
     parser.add_option("-n", "--noise_voltage", dest="noise_voltage", type="float", default=DEFAULT_NOISE_VOLTAGE,
                       help="Set the noise power in voltage")
     (opts, args) = parser.parse_args()
+
     qt_app = Qt.QApplication(sys.argv)
 
     tb = leo_channel()

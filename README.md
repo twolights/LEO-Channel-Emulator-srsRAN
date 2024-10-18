@@ -9,7 +9,7 @@ This project is a part of the research work on the implementation of Doppler-tol
 - GNURadio
 - Matplotlib
 
-# Current Status (As of October 17th, 2024)
+# Current Status (As of October 19th, 2024)
 
 - This project is currently under development and for research purposes only.
 - The simulator is implemented under the following assumptions:
@@ -17,7 +17,7 @@ This project is a part of the research work on the implementation of Doppler-tol
   - The UE is stationary and the satellite is moving
   - The satellite is in a perfect circular orbit with a fixed altitude
   - The satellite is orbiting just right above the UE
-  - The channel is LOS with no fading (yet)
+  - 3GPP NTN-TDL-C channel model is adopted, LoS only
 - The srsRAN gNB and UE are configured to connect to the ZeroMQ RF interface.
 - IP addresses of srsRAN gNB and UE are hardcoded in the GNURadio flowgraph.
 
@@ -53,8 +53,8 @@ After running the simulator, start the srsRAN gNB and UE with proper configurati
 # TODOs
 
 - [X] Add noise
-- [ ] Add fading
+- [X] Add fading
 - [ ] Add command line options for srsRAN UE & gNB IP addresses
-- [ ] Add channel models such as NTN-TDL-C
+- [X] Add channel models such as NTN-TDL-C
 - [ ] Implement and test on real RF devices such as USRP
 - [ ] Interactive GUI for the satellite & UE plot
