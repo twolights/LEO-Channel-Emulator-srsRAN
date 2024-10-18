@@ -11,6 +11,7 @@ DEFAULT_DOPPLER_FREQ = 0
 DEFAULT_PROP_DELAY = 0
 DEFAULT_DL_FREQ = 2.68 * 1e9  # Default downlink frequency, GHz
 DEFAULT_UL_FREQ = 2.53 * 1e9  # Default uplink frequency, GHz
+DEFAULT_NOISE_VOLTAGE = 0.0  # Default noise power in voltage
 
 
 def main():
@@ -25,6 +26,8 @@ def main():
                       help="Set the doppler frequency (in Hz)")
     parser.add_option("-p", "--prop_delay", dest="prop_delay", type="float", default=DEFAULT_PROP_DELAY,
                       help="Set the propagation delay (in μs)")
+    parser.add_option("-n", "--noise_voltage", dest="noise_voltage", type="float", default=DEFAULT_NOISE_VOLTAGE,
+                      help="Set the noise power in voltage")
 
     (options, args) = parser.parse_args()
 
@@ -34,6 +37,7 @@ def main():
     tb.set_ul_band_fc(options.ul_freq)
     tb.set_doppler_freq_dl(options.doppler_freq)
     tb.set_doppler_freq_ul(options.doppler_freq)
+    tb.set_noise_voltage(options.noise_voltage)
 
     tb.start()
     tb.show()
