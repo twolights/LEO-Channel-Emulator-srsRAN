@@ -29,15 +29,15 @@ def main():
     parser.add_option("-n", "--noise_voltage", dest="noise_voltage", type="float", default=DEFAULT_NOISE_VOLTAGE,
                       help="Set the noise power in voltage")
 
-    (options, args) = parser.parse_args()
+    (opts, args) = parser.parse_args()
 
     tb = leo_channel()
-    tb.set_prop_delay(utils.get_delay_in_samples(options.prop_delay, tb.get_samp_rate()))
-    tb.set_dl_band_fc(options.dl_freq)
-    tb.set_ul_band_fc(options.ul_freq)
-    tb.set_doppler_freq_dl(options.doppler_freq)
-    tb.set_doppler_freq_ul(options.doppler_freq)
-    tb.set_noise_voltage(options.noise_voltage)
+    tb.set_prop_delay(utils.get_delay_in_samples(opts.prop_delay, tb.get_samp_rate()))
+    tb.set_dl_band_fc(opts.dl_freq)
+    tb.set_ul_band_fc(opts.ul_freq)
+    tb.set_doppler_freq_dl(opts.doppler_freq)
+    tb.set_doppler_freq_ul(opts.doppler_freq)
+    tb.set_noise_voltage(opts.noise_voltage)
 
     tb.start()
     tb.show()
