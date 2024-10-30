@@ -75,7 +75,7 @@ class LEOSatellite(object):
         return math.sqrt(r ** 2 + EARTH_RADIUS_IN_KM ** 2 - 2 * r * EARTH_RADIUS_IN_KM * math.cos(theta))
 
     def get_relative_speed_to_ue(self) -> float:
-        return self.orbital_speed * math.sin(self._get_relative_angle())
+        return self.orbital_speed * math.cos(self.get_elevation_angle())
 
     def get_elevation_angle(self) -> float:
         theta = self._get_relative_angle()
@@ -83,7 +83,7 @@ class LEOSatellite(object):
         return math.atan2(r * math.cos(theta) - EARTH_RADIUS_IN_KM, r * math.sin(theta))
 
     def _get_doppler_shift(self, frequency: float) -> float:
-        return frequency * self.get_relative_speed_to_ue() / SPEED_OF_LIGHT_IN_KM_S
+        return frequency * (1 - (SPEED_OF_LIGHT_IN_KM_S / (self.get_relative_speed_to_ue() + SPEED_OF_LIGHT_IN_KM_S)))
 
     def get_uplink_doppler_shift(self) -> float:
         return self._get_doppler_shift(self.uplink_frequency)
