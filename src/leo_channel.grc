@@ -186,7 +186,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [912, 436.0]
+    coordinate: [1096, 436.0]
     rotation: 0
     state: true
 - name: normalized_doppler_freq_ul
@@ -198,7 +198,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [920, 788.0]
+    coordinate: [1096, 1004.0]
     rotation: 0
     state: true
 - name: orbiting_speed
@@ -453,7 +453,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1216, 672.0]
+    coordinate: [1240, 672.0]
     rotation: 0
     state: enabled
 - name: channel_model_dl
@@ -474,7 +474,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [912, 500.0]
+    coordinate: [1096, 500.0]
     rotation: 0
     state: enabled
 - name: channel_model_ul
@@ -495,11 +495,11 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [920, 852.0]
+    coordinate: [1096, 852.0]
     rotation: 0
     state: enabled
-- name: fading_model_dl
-  id: channels_fading_model
+- name: los_fading_model_dl
+  id: channels_selective_fading_model
   parameters:
     K: '10.5293'
     LOS: 'True'
@@ -509,19 +509,22 @@ blocks:
     comment: 'NTN-TDL-C Specifies:
 
       Ricean K-factor = 10.224dB = 10.5293'
-    fDTs: 0/samp_rate
+    delays: (0.0, )
+    fDTs: '0'
+    mags: (0.9133, )
     maxoutbuf: '0'
     minoutbuf: '0'
+    ntaps: '8'
     seed: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [632, 508.0]
+    coordinate: [616, 404.0]
     rotation: 0
-    state: enabled
-- name: fading_model_dl_0
-  id: channels_fading_model
+    state: true
+- name: los_fading_model_ul
+  id: channels_selective_fading_model
   parameters:
     K: '10.5293'
     LOS: 'True'
@@ -531,17 +534,20 @@ blocks:
     comment: 'NTN-TDL-C Specifies:
 
       Ricean K-factor = 10.224dB = 10.5293'
-    fDTs: 0/samp_rate
+    delays: (0.0, )
+    fDTs: '0'
+    mags: (0.9133, )
     maxoutbuf: '0'
     minoutbuf: '0'
+    ntaps: '8'
     seed: '0'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [640, 860.0]
+    coordinate: [616, 788.0]
     rotation: 0
-    state: enabled
+    state: true
 - name: main_tabs
   id: qtgui_tab_widget
   parameters:
@@ -576,46 +582,88 @@ blocks:
     coordinate: [16, 732.0]
     rotation: 0
     state: true
-- name: power_decay_multiply_block_dl
-  id: blocks_multiply_const_vxx
+- name: nlos_fading_model_dl
+  id: channels_selective_fading_model
+  parameters:
+    K: '4.0'
+    LOS: 'False'
+    N: '8'
+    affinity: ''
+    alias: ''
+    comment: ''
+    delays: (0.0, 71.35 * 1e-9 * samp_rate)
+    fDTs: '0'
+    mags: (0.087, 0.005)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: '8'
+    seed: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 612.0]
+    rotation: 0
+    state: true
+- name: nlos_fading_model_ul
+  id: channels_selective_fading_model
+  parameters:
+    K: '4.0'
+    LOS: 'False'
+    N: '8'
+    affinity: ''
+    alias: ''
+    comment: ''
+    delays: (0.0, 71.35 * 1e-9 * samp_rate)
+    fDTs: '0'
+    mags: (0.087, 0.005)
+    maxoutbuf: '0'
+    minoutbuf: '0'
+    ntaps: '8'
+    seed: '0'
+  states:
+    bus_sink: false
+    bus_source: false
+    bus_structure: null
+    coordinate: [616, 996.0]
+    rotation: 0
+    state: true
+- name: ntn_tdl_c_add_dl
+  id: blocks_add_xx
   parameters:
     affinity: ''
     alias: ''
-    comment: 'NTN-TDL-C Specifies powers in dB = -0.394
-
-      for tap #1, LOS path'
-    const: '0.9133'
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
+    num_inputs: '2'
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1136, 540.0]
+    coordinate: [920, 536.0]
     rotation: 0
-    state: enabled
-- name: power_decay_multiply_block_ul
-  id: blocks_multiply_const_vxx
+    state: true
+- name: ntn_tdl_c_add_ul
+  id: blocks_add_xx
   parameters:
     affinity: ''
     alias: ''
-    comment: 'NTN-TDL-C Specifies powers in dB = -0.394
-
-      for tap #1, LOS path'
-    const: '0.9133'
+    comment: ''
     maxoutbuf: '0'
     minoutbuf: '0'
+    num_inputs: '2'
     type: complex
     vlen: '1'
   states:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1144, 892.0]
+    coordinate: [920, 888.0]
     rotation: 0
-    state: enabled
+    state: true
 - name: qtgui_sink_x_dl
   id: qtgui_sink_x
   parameters:
@@ -642,7 +690,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1448, 492.0]
+    coordinate: [1472, 492.0]
     rotation: 0
     state: true
 - name: qtgui_sink_x_ul
@@ -671,7 +719,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1448, 836.0]
+    coordinate: [1472, 836.0]
     rotation: 0
     state: enabled
 - name: throttle_dl
@@ -728,7 +776,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1448, 628.0]
+    coordinate: [1472, 628.0]
     rotation: 0
     state: enabled
 - name: zeromq_rep_sink_ul
@@ -747,7 +795,7 @@ blocks:
     bus_sink: false
     bus_source: false
     bus_structure: null
-    coordinate: [1448, 732.0]
+    coordinate: [1472, 732.0]
     rotation: 0
     state: enabled
 - name: zeromq_req_source_dl
@@ -800,14 +848,18 @@ connections:
 - [blocks_delay, '0', zeromq_rep_sink_dl, '0']
 - [blocks_delay, '1', qtgui_sink_x_ul, '0']
 - [blocks_delay, '1', zeromq_rep_sink_ul, '0']
-- [channel_model_dl, '0', power_decay_multiply_block_dl, '0']
-- [channel_model_ul, '0', power_decay_multiply_block_ul, '0']
-- [fading_model_dl, '0', channel_model_dl, '0']
-- [fading_model_dl_0, '0', channel_model_ul, '0']
-- [power_decay_multiply_block_dl, '0', blocks_delay, '0']
-- [power_decay_multiply_block_ul, '0', blocks_delay, '1']
-- [throttle_dl, '0', fading_model_dl, '0']
-- [throttle_ul, '0', fading_model_dl_0, '0']
+- [channel_model_dl, '0', blocks_delay, '0']
+- [channel_model_ul, '0', blocks_delay, '1']
+- [los_fading_model_dl, '0', ntn_tdl_c_add_dl, '0']
+- [los_fading_model_ul, '0', ntn_tdl_c_add_ul, '0']
+- [nlos_fading_model_dl, '0', ntn_tdl_c_add_dl, '1']
+- [nlos_fading_model_ul, '0', ntn_tdl_c_add_ul, '1']
+- [ntn_tdl_c_add_dl, '0', channel_model_dl, '0']
+- [ntn_tdl_c_add_ul, '0', channel_model_ul, '0']
+- [throttle_dl, '0', los_fading_model_dl, '0']
+- [throttle_dl, '0', nlos_fading_model_dl, '0']
+- [throttle_ul, '0', los_fading_model_ul, '0']
+- [throttle_ul, '0', nlos_fading_model_ul, '0']
 - [zeromq_req_source_dl, '0', throttle_dl, '0']
 - [zeromq_req_source_ul, '0', throttle_ul, '0']
 
