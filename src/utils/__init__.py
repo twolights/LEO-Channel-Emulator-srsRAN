@@ -1,5 +1,7 @@
 import math
 
+from .precise_timer import PreciseTimer
+
 
 def get_delay_in_samples(delay: float, sampling_rate: float) -> int:
     return int(delay * sampling_rate)

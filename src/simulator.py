@@ -89,23 +89,22 @@ def main():
     tb.start()
     tb.show()
 
-    def sig_handler(sig=None, frame=None):
-        tb.stop()
-        tb.wait()
-        Qt.QApplication.quit()
-
-    signal.signal(signal.SIGINT, sig_handler)
-    signal.signal(signal.SIGTERM, sig_handler)
-
     callback = functools.partial(qt_callback,
                                  tb=tb,
                                  orbit_view=plot_window,
                                  satellite=satellite)
 
-    timer = Qt.QTimer()
-    timer.setTimerType(Qt.Qt.PreciseTimer)
-    timer.timeout.connect(callback)
-    timer.start(QTIMER_TIMEOUT)
+    precise_timer = utils.PreciseTimer()
+    precise_timer.start(500, callback)
+
+    def sig_handler(sig=None, frame=None):
+        tb.stop()
+        tb.wait()
+        precise_timer.stop()
+        Qt.QApplication.quit()
+
+    signal.signal(signal.SIGINT, sig_handler)
+    signal.signal(signal.SIGTERM, sig_handler)
 
     qt_app.exec_()
 

@@ -2,9 +2,9 @@ import signal
 import sys
 from optparse import OptionParser
 
-import utils
 from PyQt5 import Qt
 
+import utils
 from leo_channel import leo_channel
 
 DEFAULT_DOPPLER_FREQ = 0
@@ -48,10 +48,6 @@ def main():
 
     signal.signal(signal.SIGINT, sig_handler)
     signal.signal(signal.SIGTERM, sig_handler)
-
-    timer = Qt.QTimer()
-    timer.start(500)
-    timer.timeout.connect(lambda: None)
 
     qt_app.exec_()
 
