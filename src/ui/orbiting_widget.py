@@ -32,8 +32,8 @@ class OrbitingWidget(QWidget):
         self.ax.grid(True)
         # self.ax.set_xlim(-2000, 2000)
         self.ax.set_xlim(-limit, limit)
-        # self.ax.set_ylim(4000, 8000)
-        self.ax.set_ylim(-limit, limit)
+        self.ax.set_ylim(-500, 10000)
+        # self.ax.set_ylim(-limit, limit)
         self.ax.set_aspect('equal', 'box')
 
     def _initialize_components(self) -> None:
@@ -54,6 +54,12 @@ class OrbitingWidget(QWidget):
         self.satellite_dot, = self.ax.plot([], [], 'ro')
         self.satellite_dot.set_label('Satellite')
 
+        self.distance_to_earth_core, = self.ax.plot([0, 0], [0, 0], 'b-')
+        self.slant_range, = self.ax.plot([0, 0], [0, 0], 'r')
+        self.ax.plot([-8000, 8000],
+                     [EARTH_RADIUS_IN_KM * math.sin(ue_location), EARTH_RADIUS_IN_KM * math.sin(ue_location)],
+                     'black', label='Horizon')
+
         self.ax.legend()
 
     def _initialize_ui(self) -> None:
@@ -66,5 +72,9 @@ class OrbitingWidget(QWidget):
     def update(self) -> None:
         pos = self.satellite.get_current_position()
         radius = self._get_orbit_radius()
+        ue_location = self.satellite.get_ue_location()
         self.satellite_dot.set_data([radius * math.cos(pos)], [radius * math.sin(pos)])
+        self.slant_range.set_data([EARTH_RADIUS_IN_KM * math.cos(ue_location), radius * math.cos(pos)],
+                                  [EARTH_RADIUS_IN_KM * math.sin(ue_location), radius * math.sin(pos)])
+        self.distance_to_earth_core.set_data([0, radius * math.cos(pos)], [0, radius * math.sin(pos)])
         self.canvas.draw_idle()

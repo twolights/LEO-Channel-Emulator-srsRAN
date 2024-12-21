@@ -27,7 +27,7 @@ class LEOSatellite(object):
         radius = self._get_true_radius()
         speed_in_m_s = math.sqrt(G_ME / (radius * 1000))
         self.orbital_speed = speed_in_m_s / 1000  # in km/s
-        self.orbital_angular_speed = self.orbital_speed / radius
+        self.orbital_angular_speed = 10 * self.orbital_speed / radius
 
     def __init__(self,
                  altitude_in_km: float,
