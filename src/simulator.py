@@ -17,6 +17,8 @@ DEFAULT_UL_FREQ = 2.53 * 1e9  # Default uplink frequency, GHz
 DEFAULT_SATELLITE_ALTITUDE = 600  # Default satellite altitude in km
 DEFAULT_SATELLITE_LOCATION = 0  # Default satellite location, in degrees
 DEFAULT_NOISE_VOLTAGE = 0.0  # Default noise power in voltage
+DEFAULT_NODEB_ADDRESS = 'tcp://127.0.0.1:2000'  # Default NodeB IP address
+DEFAULT_UE_ADDRESS = 'tcp://127.0.0.1:2001'  # Default UE IP address
 
 timer = 0
 
@@ -72,12 +74,18 @@ def main():
                       help="Set the initial position of the satellite in degrees")
     parser.add_option("-n", "--noise_voltage", dest="noise_voltage", type="float", default=DEFAULT_NOISE_VOLTAGE,
                       help="Set the noise power in voltage")
+    parser.add_option("--gnb_addr", dest="gnb_addr", type="string", default=DEFAULT_NODEB_ADDRESS,
+                      help=f"Set the gNodeB IP address & port, e.g., {DEFAULT_NODEB_ADDRESS}")
+    parser.add_option("--ue_addr", dest="ue_addr", type="string", default=DEFAULT_UE_ADDRESS,
+                      help=f"Set the UE IP address & port, e.g., {DEFAULT_UE_ADDRESS}")
     (opts, args) = parser.parse_args()
 
     qt_app = Qt.QApplication(sys.argv)
 
     tb = leo_channel()
     tb.set_noise_voltage(opts.noise_voltage)
+    tb.set_nodeb_addr(opts.gnb_addr)
+    tb.set_ue_addr(opts.ue_addr)
     satellite = init_satellite(tb,
                                opts.dl_freq, opts.ul_freq,
                                opts.sat_altitude, opts.sat_init_pos)
