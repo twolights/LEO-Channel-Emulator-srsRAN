@@ -591,7 +591,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    delays: (0.0, 71.35 * 1e-9 * samp_rate)
+    delays: (0.0, 6.44 * 1e-3 * samp_rate)
     fDTs: '0'
     mags: (0.087, 0.005)
     maxoutbuf: '0'
@@ -614,7 +614,7 @@ blocks:
     affinity: ''
     alias: ''
     comment: ''
-    delays: (0.0, 71.35 * 1e-9 * samp_rate)
+    delays: (0.0, 6.44 * 1e-3 * samp_rate)
     fDTs: '0'
     mags: (0.087, 0.005)
     maxoutbuf: '0'
